@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RetailHub Dashboard</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f5f6f8;
+}
+
+header{
+  background:#1f4fd8;
+  color:#fff;
+  padding:15px 30px;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:bold;
+}
+
+.container{
+  display:grid;
+  grid-template-columns: 200px 1fr;
+}
+
+.sidebar{
+  background:#ffffff;
+  border-right:1px solid #ddd;
+  padding:20px;
+}
+
+.nav-grid{
+  display:grid;
+  grid-template-rows: repeat(4, auto);
+  gap:15px;
+}
+
+.nav-grid div{
+  padding:8px;
+  border:1px solid #ddd;
+  cursor:pointer;
+  text-align:center;
+}
+
+main{
+  padding:30px;
+}
+
+table{
+  width:100%;
+  background:#fff;
+  border-collapse:collapse;
+  margin-bottom:40px;
+}
+
+th, td{
+  padding:12px;
+  border:1px solid #ddd;
+  text-align:left;
+}
+
+th{
+  background:#eee;
+}
+
+.status{
+  padding:4px 8px;
+  font-size:14px;
+}
+
+.delivered{
+  color:green;
+}
+
+.pending{
+  color:orange;
+}
+
+.grid-title{
+  margin-bottom:15px;
+}
+
+.product-grid{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  gap:20px;
+}
+
+.item-card{
+  background:#fff;
+  border:1px solid #ddd;
+  padding:15px;
+  text-align:center;
+}
+.item-card img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+  display:block;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">RetailHub – Store Dashboard</div>
+</header>
+
+<div class="container"><div class="sidebar">
+  <h3>Navigation</h3>
+  <div class="nav-grid">
+    <div>Dashboard</div>
+    <div>Orders</div>
+    <div>Products</div>
+    <div>Customers</div>
+  </div>
+</div>
+<main>
+
+  <h2>Latest Transactions</h2>
+
+  <table>
+    <tr>
+      <th>Order ID</th>
+      <th>Customer</th>
+      <th>Product</th>
+      <th>Amount</th>
+      <th>Status</th>
+    </tr>
+    <tr>
+      <td>#1001</td>
+      <td>Amit Sharma</td>
+      <td>Smart Watch</td>
+      <td>₹2,500</td>
+      <td class="status delivered">Delivered</td>
+    </tr>
+    <tr>
+      <td>#1002</td>
+      <td>Neha Verma</td>
+      <td>Leather Bag</td>
+      <td>₹1,200</td>
+      <td class="status pending">Pending</td>
+    </tr>
+    <tr>
+      <td>#1003</td>
+      <td>Rohan Mehta</td>
+      <td>Wireless Mouse</td>
+      <td>₹800</td>
+      <td class="status delivered">Delivered</td>
+    </tr>
+  </table>
+
+  <h2 class="grid-title">Popular Items</h2>
+
+  <div class="product-grid">
+    <div class="item-card">
+      <img src="https://picsum.photos/id/111/400/300" width="100%" alt="Item">
+      <h4>Item A</h4>
+      <p>₹500</p>
+    </div>
+    <div class="item-card">
+      <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=400&q=60" width="100%" alt="Item">
+      <h4>Item B</h4>
+      <p>₹750</p>
+    </div>
+    <div class="item-card">
+      <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=400&q=60" width="100%" alt="Item">
+      <h4>Item C</h4>
+      <p>₹1,200</p>
+    </div>
+    <div class="item-card">
+      <img src="https://picsum.photos/id/21/400/300" width="100%" alt="Item">
+      <h4>Item D</h4>
+      <p>₹450</p>
+    </div>
+  </div>
+
+</main></div>
+
+</body>
+</html>
