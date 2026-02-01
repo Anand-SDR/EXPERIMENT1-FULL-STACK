@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>SVG Tool</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+      padding: 10px;
+      background: #f4f6f8;
+    }
+    svg {
+      width: 100vw;
+      height: 70vh;
+      border: 2px solid #333;
+      background: #fff;
+      cursor: crosshair;
+    }
+  </style>
+</head>
+
+<body>
+
+  <select id="shape">
+    <option value="rect">Rect</option>
+    <option value="circle">Circle</option>
+    <option value="path">Pencil</option>
+  </select>
+
+  <input type="color" id="color" value="#ff0000">
+  <button onclick="undo()">Undo</button>
+
+  <svg id="svg"></svg>
+
+  <script>
+    // Helper
+    const $ = id => document.getElementById(id);
+
+    const svg = $("svg");
+    const shape = $("shape");
+    const color = $("color");
+
+    let startX = 0, startY = 0;
+    let current = null;
+    let history = [];
+    let pathData = "";
+
+    svg.addEventListener("mousedown", e => {
+      startX = e.offsetX;
+      startY = e.offsetY;
+
+      if (shape.value === "path") {
+        pathData = `M ${startX} ${startY}`;
+        current = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        current.setAttribute("d", pathData);
+        current.setAttribute("fill", "none");
+        current.setAttribute("stroke", color.value);
+        current.setAttribute("stroke-width", 2);
+      } 
+      else if (shape.value === "rect") {
+        current = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        current.setAttribute("x", startX);
+        current.setAttribute("y", startY);
+        current.setAttribute("width", 0);
+        current.setAttribute("height", 0);
+        current.setAttribute("fill", color.value);
+      } 
+      else if (shape.value === "circle") {
+        current = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        current.setAttribute("cx", startX);
+        current.setAttribute("cy", startY);
+        current.setAttribute("r", 0);
+        current.setAttribute("fill", color.value);
+      }
+
+      svg.appendChild(current);
+    });
+
+    svg.addEventListener("mousemove", e => {
+      if (!current) return;
+
+      const x = e.offsetX;
+      const y = e.offsetY;
+
+      if (shape.value === "rect") {
+        current.setAttribute("x", Math.min(x, startX));
+        current.setAttribute("y", Math.min(y, startY));
+        current.setAttribute("width", Math.abs(x - startX));
+        current.setAttribute("height", Math.abs(y - startY));
+      } 
+      else if (shape.value === "circle") {
+        const r = Math.hypot(x - startX, y - startY);
+        current.setAttribute("r", r);
+      } 
+      else if (shape.value === "path") {
+        pathData += ` L ${x} ${y}`;
+        current.setAttribute("d", pathData);
+      }
+    });
+
+    svg.addEventListener("mouseup", finish);
+    svg.addEventListener("mouseleave", finish);
+
+    function finish() {
+      if (current) {
+        history.push(current);
+        current = null;
+      }
+    }
+
+    function undo() {
+      if (history.length) {
+        svg.removeChild(history.pop());
+      }
+    }
+  </script>
+
+</body>
+</html>
